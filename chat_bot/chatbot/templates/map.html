@@ -1,0 +1,75 @@
+{% include 'navbar.html' %}
+<html lang="en">
+<head>
+    
+    
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <style>
+        body {
+            background-color: darkcyan;
+        }
+        .content {
+            margin: 100px;
+        }
+
+        #buttons {
+            margin-left: 100px;
+            margin-top: 100px; 
+            margin-right: 100px;
+            padding-left: 20px ;
+        }
+        #map { height: 300px;width: 1000px; }
+    </style>
+</head>
+<body>
+    
+<section class="content">
+    <div id="map" >
+    
+    </div>
+
+    <div id="buttons" >
+        <button onclick="pharmacie()">pharmacie</button>
+        <button onclick="Hospital()">Hopital</button>
+    </div>
+</section>
+    
+
+
+
+
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script >
+var posx, posy;
+function mapos(position) {
+             posx = position.coords.latitude;
+             posy = position.coords.longitude;
+           
+            var map = L.map('map').setView([posx, posy], 15); 
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            L.marker([posx, posy]).addTo(map)
+            .bindPopup('ma position');
+
+        }
+
+function pharmacie(){
+ 
+    var mapsUrl = 'https://www.google.com/maps/search/pharmacy/@' + posx + ',' + posy+',18z';  
+    window.open(mapsUrl, '_blank');
+}
+
+function Hospital(){
+ 
+    var mapsUrl = 'https://www.google.com/maps/search/hospital/' + posx + ',' + posy+',18z';  
+    window.open(mapsUrl, '_blank');
+}
+
+
+        navigator.geolocation.getCurrentPosition(mapos); 
+    </script>
+</body>
+</html>
